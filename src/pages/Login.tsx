@@ -19,8 +19,9 @@ export default function Login() {
       if (mode === 'register') {
         await register(username, email, password)
       }
-      const { data } = await login(username, password)
-      setTokens(data.access, data.refresh, username)
+      const loginEmail = mode === 'register' ? email : username
+      const { data } = await login(loginEmail, password)
+      setTokens(data.access, data.refresh, username || loginEmail)
       navigate('/')
     } catch (e: any) {
       setError(e.response?.data?.detail ?? JSON.stringify(e.response?.data) ?? 'Request failed')
@@ -44,9 +45,9 @@ export default function Login() {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Username</label>
+          <label className="form-label">{mode === 'login' ? 'Email' : 'Username'}</label>
           <input className="input" value={username} onChange={(e) => setUsername(e.target.value)}
-            placeholder="username" autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} />
+            placeholder={mode === 'login' ? 'email@example.com' : 'username'} type={mode === 'login' ? 'email' : 'text'} autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} />
         </div>
 
         {mode === 'register' && (
