@@ -35,7 +35,13 @@ export default function Companies() {
       setForm({ name: '', domain: '', sector: '', country: '' })
       load()
     } catch (e: any) {
-      alert(JSON.stringify(e.response?.data))
+      const data = e.response?.data
+      if (data && typeof data === 'object') {
+        const msgs = Object.entries(data).map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : v}`).join('\n')
+        alert(msgs)
+      } else {
+        alert(e.message ?? 'Failed to add company')
+      }
     } finally {
       setAdding(false)
     }
