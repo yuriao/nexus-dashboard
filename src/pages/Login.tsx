@@ -24,7 +24,7 @@ export default function Login() {
       setTokens(data.access, data.refresh, username || loginEmail)
       navigate('/')
     } catch (e: any) {
-      setError(e.response?.data?.detail ?? JSON.stringify(e.response?.data) ?? 'Request failed')
+      setError(e.response?.data?.detail ?? e.response?.data?.non_field_errors?.[0] ?? JSON.stringify(e.response?.data) ?? e.message ?? 'Request failed')
     } finally {
       setLoading(false)
     }
