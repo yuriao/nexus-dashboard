@@ -35,8 +35,8 @@ api.interceptors.response.use(
 export default api
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
-export const login = (username: string, password: string) =>
-  api.post('/api/auth/login/', { username, password })
+export const login = (identifier: string, password: string) =>
+  api.post('/api/auth/login/', { username: identifier, email: identifier, password })
 
 export const register = (username: string, email: string, password: string) =>
   api.post('/api/auth/register/', { username, email, password, password2: password })
