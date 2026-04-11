@@ -68,6 +68,6 @@ export const listReports = (page = 1) =>
 
 // ── Data points ──────────────────────────────────────────────────────────────
 export const getDataPoints = (companyId: number, sourceType?: string) =>
-  api.get('/api/datapoints/', {
-    params: { company: companyId, ...(sourceType ? { source_type: sourceType } : {}) },
+  api.get(`/api/companies/${companyId}/data-points/`, {
+    params: { ...(sourceType ? { source_type: sourceType } : {}) },
   })
